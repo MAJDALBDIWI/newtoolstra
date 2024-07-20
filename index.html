@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Translate Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Translate Platform</h1>
+    <form>
+        <label for="german-text">German Text:</label>
+        <textarea id="german-text" name="german-text"></textarea>
+        <br>
+        <label for="language-select">Select Language:</label>
+        <select id="language-select" name="language-select">
+            <option value="ar">Arabic</option>
+            <option value="tr">Turkish</option>
+            <option value="uk">Ukrainian</option>
+        </select>
+        <br>
+        <button id="start-button">Start</button>
+        <button id="pause-button">Pause</button>
+        <button id="resume-button">Resume</button>
+        <button id="next-button">Next</button>
+        <button id="previous-button">Previous</button>
+    </form>
+    <div id="translation-output"></div>
+
+    <script>
+        const germanText = document.getElementById('german-text');
+        const languageSelect = document.getElementById('language-select');
+        const startButton = document.getElementById('start-button');
+        const pauseButton = document.getElementById('pause-button');
+        const resumeButton = document.getElementById('resume-button');
+        const nextButton = document.getElementById('next-button');
+        const previousButton = document.getElementById('previous-button');
+        const translationOutput = document.getElementById('translation-output');
+
+        startButton.addEventListener('click', async () => {
+            const germanTextValue = germanText.value;
+            const languageValue = languageSelect.value;
+            const response = await fetch('/translate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    germanText: germanTextValue,
+                    language: languageValue
+                })
+            });
+            const translation = await response.json();
+            translationOutput.innerHTML = translation;
+        });
+
+        pauseButton.addEventListener('click', () => {
+            // Pause the audio and text output
+        });
+
+        resumeButton.addEventListener('click', () => {
+            // Resume the audio and text output
+        });
+
+        nextButton.addEventListener('click', () => {
+            // Go to the next sentence
+        });
+
+        previousButton.addEventListener('click', () => {
+            // Go to the previous sentence
+        });
+    </script>
+</body>
+</html>
